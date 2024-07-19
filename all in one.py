@@ -10,23 +10,24 @@ g=9.81
 
 x = np.linspace(0, 150, 100)
 
-
+#this draws the path with minimum initial velocity
 def minu(x,mult, X,Y):
     a=((X**2+Y**2)**0.5)/X**2
     b=(Y+(X**2+Y**2)**0.5)/X
     return(-a*x ** 2 + b*x)
 
+#this draws the path with maximum range(45 degree angle)
 def maxrange(x,mult,X,Y):
     u=mult*(g**0.5)*((Y+((X**2+Y**2)**0.5))**0.5)
     a=(g/(2*u**2))*(2)
     return(-a*x ** 2 + x)
-
+#this draws the bounding parabola for all arcs
 def bounding(x,mult,X,Y):
     u=max(mult*(g**0.5)*((Y+((X**2+Y**2)**0.5))**0.5),((4*Y**2+X**2)**0.5)*((2*g*Y)**0.5)/(2*Y))
     a=(g/(2*u**2))
     c=(u**2)/(2*g)
     return(-a*x ** 2 + c)
-    
+#this draws the minimum angle path with a velocity of the minimum times the multiplier
 def lowball(x,mult,X,Y):
     u=mult*(g**0.5)*((Y+((X**2+Y**2)**0.5))**0.5)
     atan=-(g*X**2)/(2*u**2)
@@ -37,13 +38,13 @@ def lowball(x,mult,X,Y):
     b=tan
     return(-a*x ** 2 + b*x)
     
-
+#this is the path that reaches the point at its peak
 def peakball(x,mult,X,Y):
     u=((4*Y**2+X**2)**0.5)*((2*g*Y)**0.5)/(2*Y)
     a=(g/(2*u**2))*(1+((2*Y)/X)**2)
     b=(2*Y)/X
     return(-a*x ** 2 + b*x)
-
+#this is the alternate angle for the peak ball to reach the point
 def peakball2(x,mult,X,Y):
     u=((4*Y**2+X**2)**0.5)*((2*g*Y)**0.5)/(2*Y)
     atan=-(g*X**2)/(2*u**2)
@@ -53,7 +54,7 @@ def peakball2(x,mult,X,Y):
     a=(g/(2*u**2))*(1+(tan)**2)
     b=tan
     return(-a*x ** 2 + b*x)
-
+#this is the alternate angle for the low ball to reach the point
 def highball(x,mult,X,Y):
     u=mult*(g**0.5)*((Y+((X**2+Y**2)**0.5))**0.5)
     atan=-(g*X**2)/(2*u**2)
@@ -79,6 +80,7 @@ toggles=[True,True,True,True,True,True,True]
 
 fig.subplots_adjust(left=0.25, bottom=0.25)
 
+#these sliders control the target point
 axx = fig.add_axes([0.25,.15,.65,.03])
 Xslider = Slider(
     ax=axx,
@@ -118,7 +120,7 @@ def update(val):
     fig.canvas.draw_idle()
 
 
-
+#buttons to toggle on and off lines
 def toggle1(val):
     toggles[0]=not toggles[0]
     update
